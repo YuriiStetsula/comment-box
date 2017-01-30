@@ -21,7 +21,8 @@
             <textarea name="" id="" cols="30" rows="10" class="input__user_message_field" ng-model="vm.newUserText"></textarea>
         </div>
         <div class="input__input-btn">
-            <input class="btn" type="button" ng-click="vm.addNewComment()" value="Add comment">
+            <input class="btn" type="button" ng-click="vm.addNewComment()" value="Add comment" ng-show="vm.mainButton === 'Add'">
+             <input class="btn" type="button" ng-click="vm.editComment()" value="Edit" ng-show="vm.mainButton === 'Edit'" >
         </div>
     </div>
    
@@ -30,6 +31,7 @@
             <div class="output__user_name">{{comment.author}}</div>
             <div class="output__user-message">{{comment.text}}</div>
             <div class="output__user-date"> {{comment.date | date : "dd.mm.yyyy @ h:mma "}}</div>
+            <div class="outpur_user-edit"> <input type="button" value="edit" ng-click="vm.getCommentToEdit(comment)"> </div>
         </div>
     </div>
     
