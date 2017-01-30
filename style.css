@@ -1,0 +1,57 @@
+.widget {
+   max-width:80vh;
+    margin:0 auto;
+}
+.input {
+    width:100%;
+
+}
+.input__user_name{
+    padding-bottom: 12px;
+}
+
+.input__user_name > input {
+
+    width:100%;
+    box-sizing: border-box;
+
+}
+
+.input__user_message{
+    padding-bottom: 12px;
+}
+.input__user_message > textarea {
+    width:100%;
+    box-sizing: border-box;
+}
+
+.input__input-btn{
+    padding-bottom: 22px;
+}
+
+.btn {
+    width: 100%;
+    background-color: dodgerblue;
+    border: none;
+    height: 35px;
+    border-radius: 4px;
+    color:white;
+    cursor: pointer;
+}
+
+.output__user-box{
+    padding: 7px;
+
+}
+
+.output__user_name{
+    padding-bottom: 12px;
+    color:dodgerblue;
+}
+
+.output__user-date{
+    padding-top: 12px;
+    text-align: right;
+    font-size: 12px;
+    color:grey;
+}

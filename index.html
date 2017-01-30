@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" ng-app="commentApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- премести данный код в отдельный html, и опиши виджет как компонетн используй синтаксис angular.component-->
+<div class="widget" ng-controller="mainController as vm">
+
+    <div class="input">
+        <div class="input__user_name">
+            <input type="text" class="input__user_name_field" ng-model="vm.newUserName">
+        
+        </div>
+        <div class="input__user_message">
+            <textarea name="" id="" cols="30" rows="10" class="input__user_message_field" ng-model="vm.newUserText"></textarea>
+        </div>
+        <div class="input__input-btn">
+            <input class="btn" type="button" ng-click="vm.addNewComment()" value="Add comment">
+        </div>
+    </div>
+   
+    <div class="output" >
+        <div class="output__user-box" ng-repeat="comment in vm.messages">
+            <div class="output__user_name">{{comment.author}}</div>
+            <div class="output__user-message">{{comment.text}}</div>
+            <div class="output__user-date"> {{comment.date | date : "dd.mm.yyyy @ h:mma "}}</div>
+        </div>
+    </div>
+    
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+
+<script src="js/angular.min.js"></script>
+
+
+<script src="js/main.js"></script>
+</body>
+</html>
