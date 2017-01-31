@@ -3,32 +3,34 @@
 function MainController (commentModel,$scope) {
     var vm = this;
     
+    this.scope = $scope;
+    
     vm.model = commentModel
     vm.newUserName = "";
     vm.newUserText = "";
     vm.editedMessage = {};
     
     vm.mainButton = "Add"
+   
+
+
+   vm.getData(vm)
+
+
 
     vm.addNewComment = function () {
          if (vm.newUserName === "" ||  vm.newUserText === "" ){
              alert("some field is empty:)")
          } else
           vm.model.addData(vm.newUserName,vm.newUserText).then(function(resp){
-             vm.messages = resp.data
+             vm.getData(vm)
             
            
     })
-        vm.newUserName = "";
-        vm.newUserText = "";
+      
     };
 
-    vm.model.fetchData().then(function(resp){
-      
-        vm.messages = resp.data;
-    })
-
-    vm.getCommentToEdit = function(data){
+   vm.getCommentToEdit = function(data){
           
           vm.newUserName = data.author;
           vm.newUserText = data.text;
@@ -40,7 +42,7 @@ function MainController (commentModel,$scope) {
               if (n!==o){
 
                     vm.editedMessage.date = new Date()
-                    vm.editedMessage.text = n + "(edited on " + vm.editedMessage.date + ")"
+                    vm.editedMessage.text = n + "(edited)"
                     vm.editedMessage.id = data.id
                     
                        
@@ -57,7 +59,12 @@ function MainController (commentModel,$scope) {
        if(vm.messages[i].id === vm.editedMessage.id ){
            if(vm.messages[i].text === vm.editedMessage.text){
                alert("they are the same dude")
-           }else vm.model.addEditedComment(vm.editedMessage)
+           }else vm.model.addEditedComment(vm.editedMessage).then(function(){
+              
+               vm.getData(vm)
+              
+               vm.mainButton = "Add"
+           })
     
 
     }
@@ -71,6 +78,25 @@ function MainController (commentModel,$scope) {
 
 
 }
+
+
+
+
+MainController.prototype.getData = function(vm){
+     vm.model.fetchData().then(function(resp){
+     vm.messages = resp.data;
+}
+
+     )
+    vm.newUserName = "";
+    vm.newUserText = "";
+}
+
+
+
+
+
+
 
 
 function CommentModel ($http) {
@@ -94,7 +120,9 @@ function CommentModel ($http) {
     }  
 
     this.addEditedComment = function(editedComment){
-        console.log(editedComment)
+      
+       return  this.http.put(this.baseUrl+"/"+editedComment.id,editedComment)
+       
     }
 
 }
@@ -102,6 +130,9 @@ function CommentModel ($http) {
 
   
   
+
+
+
   
   angular.module("commentApp", [])
     .controller("mainController",MainController)
