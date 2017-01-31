@@ -1,34 +1,25 @@
 (function () {
 //Лучше использовать конструктор на прототипах для описания контроллеров или классы es6
-function MainController (commentModel,$scope) {
+function MainController (scope,commentModel) {
     var vm = this;
     
-    this.scope = $scope;
+    this.scope = scope;
     
-    vm.model = commentModel
-    vm.newUserName = "";
-    vm.newUserText = "";
-    vm.editedMessage = {};
+    this.model = commentModel
+    this.newUserName = "";
+    this.newUserText = "";
+    this.editedMessage = {};
     
-    vm.mainButton = "Add"
+    this.mainButton = "Add"
    
 
 
-   vm.getData(vm)
+  
 
 
 
-    vm.addNewComment = function () {
-         if (vm.newUserName === "" ||  vm.newUserText === "" ){
-             alert("some field is empty:)")
-         } else
-          vm.model.addData(vm.newUserName,vm.newUserText).then(function(resp){
-             vm.getData(vm)
-            
-           
-    })
-      
-    };
+  //  vm.addNewComment = function () {
+  //       };
 
    vm.getCommentToEdit = function(data){
           
@@ -82,16 +73,47 @@ function MainController (commentModel,$scope) {
 
 
 
-MainController.prototype.getData = function(vm){
-     vm.model.fetchData().then(function(resp){
-     vm.messages = resp.data;
-}
 
-     )
-    vm.newUserName = "";
-    vm.newUserText = "";
-}
 
+MainController.prototype = {
+  //  test: function(){
+   //     console.log(this.messages)
+  //  },
+
+    getData:  function(){
+ // До выполнения .then() , this === MainController .
+ // MainController {scope: b, model: CommentModel, newUserName: "", newUserText: "", editedMessage: Object…}
+
+     console.log(this)  
+    this.model.fetchData().then(function(resp){ 
+    // Но после того как приходит resp - (Object {data: Array[15], status: 200, config: Object, statusText: "OK"})  
+    //  this === window 
+    //Window {speechSynthesis: SpeechSynthesis, caches: CacheStorage, localStorage: Storage, sessionStorage: Storage, webkitStorageInfo: DeprecatedStorageInfo…}
+
+
+
+
+
+
+    // vm.messages = resp.data;
+    console.log(resp)
+    console.log(this)
+    
+})
+
+},
+    addNewComment: function(){
+        if (this.newUserName === "" ||  this.newUserText === "" ){
+             alert("some field is empty:)")
+         } else
+          this.model.addData(this.newUserName,this.newUserText).then(function(resp){
+             this.getData(this)
+            
+           
+    })
+    }
+
+}
 
 
 
@@ -135,6 +157,10 @@ function CommentModel ($http) {
 
   
   angular.module("commentApp", [])
-    .controller("mainController",MainController)
+    
+    .controller("mainController",["$scope","commentModel",function(scope,commentModel){
+       
+        return new MainController(scope,commentModel)
+    }])
     .service("commentModel",CommentModel)
 })()
