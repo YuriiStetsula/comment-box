@@ -1,4 +1,4 @@
-(function () {
+
 
 function MainController (scope,commentModel) {
     
@@ -30,7 +30,7 @@ MainController.prototype = {
             if (this.newUserName === "" ||  this.newUserText === "" ){
                 alert("some field is empty:)")
             } else
-            this.model.addData(this.newUserName,this.newUserText).then((resp) =>{
+            this.model.addData(this.newUserName,this.newUserText).then((resp) => {
                 this.getData()
                 })
     },
@@ -50,17 +50,14 @@ getCommentToEdit: function(data){
                 console.log("Old param: " +  o)
                 console.log("New param: " +  n)
                 if (n!==o){
-
                         this.editedMessage.date = new Date()
                         this.editedMessage.text = n + "(edited)"
                         this.editedMessage.id = data.id
                         
-                        
-                } else {
+                  } else {
                         this.editedMessage.text = data.text 
                         this.editedMessage.id = data.id
-                    
-                }
+                 }
             })
     },
     
@@ -117,14 +114,6 @@ function CommentModel ($http) {
 }
 
 
-  
-  
-
-
-
-  
-  angular.module("commentApp", [])
-    
+angular.module("commentApp")
     .controller("mainController",["$scope","commentModel",MainController])
     .service("commentModel",CommentModel)
-})()

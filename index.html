@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="commentApp">
+<html lang="en" ng-app="mainApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,33 +10,7 @@
 </head>
 <body>
 <!-- премести данный код в отдельный html, и опиши виджет как компонетн используй синтаксис angular.component-->
-<div class="widget" ng-controller="mainController as vm">
-
-    <div class="input">
-        <div class="input__user_name">
-            <input type="text" class="input__user_name_field" ng-model="vm.newUserName">
-        
-        </div>
-        <div class="input__user_message">
-            <textarea name="" id="" cols="30" rows="10" class="input__user_message_field" ng-model="vm.newUserText"></textarea>
-        </div>
-        <div class="input__input-btn">
-            <input class="btn" type="button" ng-click="vm.addNewComment()" value="Add comment" ng-show="vm.mainButton === 'Add'">
-             <input class="btn" type="button" ng-click="vm.editComment()" value="Edit" ng-show="vm.mainButton === 'Edit'" >
-               <!--<input class="btn" type="button" ng-click="vm.getData()" value="test"  >-->
-        </div>
-    </div>
-   
-    <div class="output" >
-        <div class="output__user-box" ng-repeat="comment in vm.messages">
-            <div class="output__user_name">{{comment.author}}</div>
-            <div class="output__user-message">{{comment.text}}</div>
-            <div class="output__user-date"> {{comment.date | date : "dd.mm.yyyy @ h:mma "}}</div>
-            <div class="outpur_user-edit"> <input type="button" value="edit" ng-click="vm.getCommentToEdit(comment)"> </div>
-        </div>
-    </div>
-    
-</div>
+<comment-box></comment-box>
 
 <script
         src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -46,6 +20,9 @@
 <script src="https://code.angularjs.org/1.6.1/angular.min.js"></script>
 
 
-<script src="js/main.js"></script>
+<script src="/app/app.module.js"></script>
+<script src="/app/component/comment.module.js"></script>
+<script src="/app/component/comment.controller.js"></script>
+<script src="/app/component/comment.component.js"></script>
 </body>
 </html>
