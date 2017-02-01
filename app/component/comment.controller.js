@@ -8,6 +8,7 @@ function MainController (scope,commentModel) {
     this.editedMessage = {};
     this.mainButton = "Add"
    
+  
     
     this.getData()
 }
@@ -44,7 +45,8 @@ setMessages: function (data){
 getCommentToEdit: function(data){
             this.newUserName = data.author;
             this.newUserText = data.text;
-            this.mainButton = "Edit"
+            this.mainButton = "Edit";
+         
             
             this.scope.$watch ("vm.newUserText",(n,o) => {
                 console.log("Old param: " +  o)
@@ -75,6 +77,13 @@ getCommentToEdit: function(data){
     
         console.log(this.messages)
         console.log(this.editedMessage)
+    },
+
+    cancelEditing: function(){
+        this.mainButton = "Add"
+        this.newUserName = "";
+        this.newUserText = "";
+      
     }
 
 }
